@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.XyUriMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.XyUri">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  <select id="queryXyUriByUri" resultMap="BaseResultMap">
+  	select * from t_xy_uri where uri = #{uri}
+  </select>
+</mapper>

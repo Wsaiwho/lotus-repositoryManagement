@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.Message">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  <select id="selectMessageNoMark" resultMap="BaseResultMap">
+  	select * from t_message where mark = 0 order by created_time desc
+  </select>
+</mapper>

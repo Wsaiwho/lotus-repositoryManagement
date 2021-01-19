@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.XyLogMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.XyLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+    <result column="update_Field" jdbcType="VARCHAR" property="updateField" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="update_message" jdbcType="VARCHAR" property="updateMessage" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  <select id="queryXyLogByCondition" resultMap="BaseResultMap">
+  		select * from t_xy_log 
+  		<where>
+			<if test="systemLogRequest.startTime != null and '' != systemLogRequest.startTime">
+				AND update_time &gt;=#{systemLogRequest.startTime}
+			</if>
+			<if test="systemLogRequest.endTime != null and '' != systemLogRequest.endTime">
+				AND update_time &lt;=#{systemLogRequest.endTime}
+			</if>
+			<if test="systemLogRequest.userId != null and '' != systemLogRequest.userId">
+				AND update_user like concat('%',#{systemLogRequest.userId},'%')
+			</if>
+			<if test="systemLogRequest.operationType != null and '' != systemLogRequest.operationType">
+				AND operation_type like concat('%',#{systemLogRequest.operationType},'%')
+			</if>
+		</where>
+		order by update_time desc
+  </select>
+  
+</mapper>

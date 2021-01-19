@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.TcmPkLogMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.TcmPkLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="terminal_code" jdbcType="VARCHAR" property="terminalCode" />
+    <result column="old_public_key" jdbcType="VARCHAR" property="oldPublicKey" />
+    <result column="new_public_key" jdbcType="VARCHAR" property="newPublicKey" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  <insert id="insertTcmPkLog"  parameterType="java.util.List">
+  		insert into t_tcm_pk_log
+		(id, terminal_code, old_public_key, new_public_key, update_time, user_id)
+		values 
+		<foreach collection="list" item="tcmPk" index="index" separator=",">
+			(#{tcmPk.id}, #{tcmPk.terminalCode}, #{tcmPk.oldPublicKey}, #{tcmPk.newPublicKey}, #{tcmPk.updateTime}, #{tcmPk.userId})
+		</foreach>
+  </insert>
+  <select id="selectTcmPkLogByTerminalCode" resultMap="BaseResultMap">
+  	select * 
+  	from t_tcm_pk_log 
+  	where terminal_code in 
+  	<foreach collection="list" index="index" item="item"
+			separator="," open="(" close=")">
+			#{item.terminalCode,jdbcType=VARCHAR}
+	</foreach>
+  </select>
+  <delete id="deleteTcmPkLog">
+  	delete from t_tcm_pk_log
+  	where id in 
+  	<foreach collection="list" index="index" item="item"
+			separator="," open="(" close=")">
+			#{item.id,jdbcType=VARCHAR}
+	</foreach>
+  </delete>
+  
+  	<delete id="deleteByTerminalCode">
+		DELETE from t_tcm_pk_log
+		where terminal_code = #{terminalCode}
+	</delete>
+</mapper>

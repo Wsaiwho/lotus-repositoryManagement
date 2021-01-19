@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.KxXtyhMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.KxXtyh">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="is_super_admin" jdbcType="VARCHAR" property="isSuperAdmin" />
+    <result column="is_disabled" jdbcType="VARCHAR" property="isDisabled" />
+    <result column="is_lock" jdbcType="VARCHAR" property="isLock" />
+    <result column="login_fail_count" jdbcType="INTEGER" property="loginFailCount" />
+    <result column="login_last_time" jdbcType="TIMESTAMP" property="loginLastTime" />
+    <result column="login_last_fail_time" jdbcType="TIMESTAMP" property="loginLastFailTime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  <!-- 根据userId获取用户信息 -->
+  <select id="queryUserByUserId" resultMap="BaseResultMap">
+    select * from t_kx_xtyh where user_id = #{userId}
+  </select>
+  
+  <!-- 更新用户登录失败次数 -->
+  <update id="updateUserFailLogin">
+	update  t_kx_xtyh set login_fail_count = #{loginFailCount}, is_lock = #{isLock}, login_last_time = #{loginLastTime} where user_id = #{userId}
+  </update>
+  
+  <select id="selectUserByCreator" resultMap="BaseResultMap">
+  	select * from t_kx_xtyh where creator = #{userId}
+  </select>
+</mapper>
