@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.KxUserRoleMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.KxUserRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  <select id="selectUserRoleByUserId" resultMap="BaseResultMap">
+  	select * from t_kx_user_role where user_id = #{userId}
+  </select>
+  
+   <select id="selectUserRoleByRoleId" resultMap="BaseResultMap">
+  	select * from t_kx_user_role where role_id = #{roleId}
+  </select>
+  
+  <delete id="deleteUserRoleByUserId">
+  	delete from t_kx_user_role where user_id = #{userId}
+  </delete>
+  
+  <insert id="insertUserRoles">
+  	 insert into t_kx_user_role(id,user_id, role_id) values 
+      <foreach collection="roleIds" index="index" item="item" separator=",">
+          ( uuid(),#{userId}, #{item} )
+      </foreach>
+  </insert>
+</mapper>

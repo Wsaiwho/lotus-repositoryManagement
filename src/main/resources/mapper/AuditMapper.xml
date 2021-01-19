@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.AuditMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.Audit">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="recorder" jdbcType="VARCHAR" property="recorder" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  <select id="queryAuditByCondition" resultMap="BaseResultMap">
+  		select * from t_audit 
+  		<where>
+			<if test="auditRequest.startTime != null and '' != auditRequest.startTime">
+				AND create_time &gt;=#{auditRequest.startTime}
+			</if>
+			<if test="auditRequest.endTime != null and '' != auditRequest.endTime">
+				AND create_time &lt;=#{auditRequest.endTime}
+			</if>
+			<if test="auditRequest.recorder != null and '' != auditRequest.recorder">
+				AND recorder like concat('%',#{auditRequest.recorder},'%')
+			</if>
+			<if test="auditRequest.description != null and '' != auditRequest.description">
+				AND description like concat('%',#{auditRequest.description},'%')
+			</if>
+		</where>
+		order by create_time desc
+  </select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.FileHashMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.FileHash">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="hash" jdbcType="VARCHAR" property="hash" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+
+
+
+	<!-- 插入 -->
+	<insert id="insertFileHash" parameterType="java.util.List">
+  	<selectKey keyProperty="id" resultType="String"
+		order="BEFORE">
+		select replace(UUID(),'-','')
+	</selectKey>
+		insert into t_file_hash
+		(id, file_name, hash, state)
+		values
+			(#{id},
+			#{fileName},
+			#{hash},
+			#{state}
+			)
+	</insert>
+
+
+
+	<!-- 批量插入 -->
+	<insert id="insertFileHashBatch" parameterType="java.util.List">
+		insert into t_file_hash
+		(id, file_name, hash, state)
+		values
+		<foreach collection="list" item="fileHash" index="index"
+			separator=",">
+			(#{fileHash.id},
+			#{fileHash.fileName},
+			#{fileHash.hash},
+			#{fileHash.state}
+			)
+		</foreach>
+	</insert>
+     
+     <!-- 批量更新是否可信字段（单个state字段批量更新） -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		update t_file_hash
+		set state=
+		<foreach collection="list" item="item" index="index"
+			separator=" " open="case" close="end">
+			when id=#{item.id} then #{state}
+		</foreach>
+		where id in
+		<foreach collection="list" index="index" item="item"
+			separator="," open="(" close=")">
+			#{item.id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<!-- 根据id批量删除 -->
+	<delete id="deleteByIds">
+		DELETE from t_file_hash
+		where id in (
+		<foreach collection="fileHashIds" item="id" separator=",">
+			#{id}
+		</foreach>
+		)
+	</delete>
+
+
+	<select id="queryFileHashByUnbelievable" resultMap="BaseResultMap">
+		SELECT * FROM
+		t_file_hash t
+		where t.state = #{state}
+	</select>
+	
+	
+	<delete id="deleteUnbelievable">
+		DELETE from t_file_hash where state = 0
+	</delete>
+	
+</mapper>

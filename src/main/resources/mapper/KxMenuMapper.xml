@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.KxMenuMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.KxMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+    <result column="menu_parent" jdbcType="VARCHAR" property="menuParent" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_desc" jdbcType="VARCHAR" property="menuDesc" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  <!-- 根据用户Id查询菜单 -->
+  <select id="selectMenuByUserId" resultMap="BaseResultMap">
+		SELECT DISTINCT menu.* FROM t_kx_role_menu rm
+		INNER JOIN t_kx_menu menu ON rm.menu_id = menu.menu_id 
+		AND rm.role_id in (
+			SELECT role_id FROM t_kx_user_role WHERE user_id = #{userId}
+		)
+  </select>
+  <!-- 根据角色Id查询菜单 -->
+  <select id="selectMenuByRoleId" resultMap="BaseResultMap">
+		SELECT DISTINCT menu.* FROM t_kx_role_menu rm
+		INNER JOIN t_kx_menu menu ON rm.menu_id = menu.menu_id 
+		AND rm.role_id = #{roleId}
+		AND menu.menu_id not IN(SELECT menu_parent FROM t_kx_menu)
+  </select>
+  
+  
+</mapper>

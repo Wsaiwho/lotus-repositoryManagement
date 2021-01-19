@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--<properties resource="dev.properties"/>-->
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    	<!--  设置编码格式读取数据库字段注释  -->
+    	<property name="javaFileEncoding" value="UTF-8"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="mergeable" value="false"></property>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+        </plugin>
+		
+		<!-- 设置数据库地址以及帐号密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/tas?useUnicode=true&amp;characterEncoding=UTF8"
+                        userId="root"
+                        password="wangshun">
+        </jdbcConnection>
+	
+		<!-- 根据数据库表生成对应实体类路径 -->
+        <javaModelGenerator targetPackage="kf.plt.tas.adminserver.entity.dataentity" targetProject="D:\workspace\wangs\adminserver/src/main/java"/>
+	
+		<!-- 根据数据库表生成对应mapper.xml文件路径 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="D:\workspace\wangs\adminserver/src/main/resources"/>
+		
+		<!-- 根据数据库表生成对应mapper映射类路径 -->
+        <javaClientGenerator targetPackage="kf.plt.tas.adminserver.mapper" targetProject="D:\workspace\wangs\adminserver/src/main/java"
+                             type="XMLMAPPER"/>
+		
+		
+		 <table tableName="gqh_business_user" domainObjectName="BusinessUser" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+		<!-- 根据表名生成对应实体、mapper映射类、mapper.xml文件 -->
+        <!-- <table tableName="t_audit" domainObjectName="Audit" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+
+       <table tableName="t_file_hash" domainObjectName="FileHash" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+
+        <table tableName="t_kx_menu" domainObjectName="KxMenu" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table> -->
+    
+        <!-- <table tableName="t_kx_role" domainObjectName="KxRole" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table> -->
+        
+        <!-- <table tableName="t_kx_role_menu" domainObjectName="KxRoleMenu" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+        
+        <table tableName="t_kx_tcmcheck_log" domainObjectName="KxTcmcheckLog" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+        
+        
+        <table tableName="t_kx_user_role" domainObjectName="KxUserRole" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table> -->
+        
+       <!--  <table tableName="t_kx_xtyh" domainObjectName="KxXtyh" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table> -->
+        
+        <!-- 
+        <table tableName="t_login_log" domainObjectName="LoginLog" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>       
+
+        <table tableName="t_message" domainObjectName="Message" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table> 
+        
+        <table tableName="t_rz_zdj" domainObjectName="RzZdj" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+ 
+        <table tableName="t_tcm_pk" domainObjectName="TcmPk" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+        
+        <table tableName="t_tcm_pk_log" domainObjectName="TcmPkLog" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table>
+        
+        
+        <table tableName="t_xy_log" domainObjectName="XyLog" >
+            <generatedKey column="id" identity="false" sqlStatement="myql"/>
+        </table> -->
+        
+
+        
+    </context>
+    
+</generatorConfiguration>

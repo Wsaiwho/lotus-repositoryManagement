@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.LoginLogMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.LoginLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  <!-- 查询userId最近一次登录日志 -->
+  <select id="queryNewLogByUserId" resultMap="BaseResultMap">
+  	select * from t_login_log where user_id = #{userId} order by login_time desc limit 1
+  </select>
+  
+  <!-- 根据userId查询登录日志 -->
+  <select id="queryLogByUserId" resultMap="BaseResultMap">
+  	select * from t_login_log where user_id = #{userId} order by login_time desc
+  </select>
+  
+  <!-- 插入用户登录日志 -->
+  <insert id="insertLoginLog">
+  	insert into t_login_log values(#{id},#{loginCount},#{userId},#{loginTime},#{loginIp})
+  </insert>
+</mapper>

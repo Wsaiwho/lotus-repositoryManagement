@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kf.plt.tas.adminserver.mapper.TcmPkMapper">
+  <resultMap id="BaseResultMap" type="kf.plt.tas.adminserver.entity.dataentity.TcmPk">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="terminal_code" jdbcType="VARCHAR" property="terminalCode" />
+    <result column="public_key" jdbcType="VARCHAR" property="publicKey" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+    <result column="attr3" jdbcType="VARCHAR" property="attr3" />
+    <result column="attr4" jdbcType="VARCHAR" property="attr4" />
+    <result column="attr5" jdbcType="VARCHAR" property="attr5" />
+    <result column="attr6" jdbcType="VARCHAR" property="attr6" />
+    <result column="attr7" jdbcType="VARCHAR" property="attr7" />
+    <result column="attr8" jdbcType="VARCHAR" property="attr8" />
+  </resultMap>
+  
+  
+ 	<!-- 插入 -->
+	<insert id="insertTcmPk" parameterType="java.util.List">
+		insert into t_tcm_pk
+		(id, terminal_code, public_key)
+		values 
+		<foreach collection="list" item="tcmPk" index="index" separator=",">
+			(#{tcmPk.id}, #{tcmPk.terminalCode}, #{tcmPk.publicKey})
+		</foreach>
+	</insert>
+	
+	<update id="updateTcmPk">
+		update t_tcm_pk
+		set public_key=
+		<foreach collection="list" item="item" index="index"
+			separator=" " open="case" close="end">
+			when terminal_code=#{item.terminalCode} then #{item.publicKey}
+		</foreach>
+		where terminal_code in
+		<foreach collection="list" index="index" item="item"
+			separator="," open="(" close=")">
+			#{item.terminalCode,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+	
+	
+	  	<delete id="deleteByTerminalCode">
+		DELETE from t_tcm_pk
+		where terminal_code = #{terminalCode}
+	</delete>
+</mapper>
